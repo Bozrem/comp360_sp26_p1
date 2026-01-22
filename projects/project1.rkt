@@ -1,19 +1,40 @@
 #lang racket
 (require 2htdp/image)
+(require 2htdp/universe)
+
+(provide (all-defined-out))
+
+;; Outside of Dr Racket, images don't show automatically. I need to define a universe to show it
+(define (show img)
+  (big-bang 0 (to-draw (lambda (w) img)))
+  )
+;; got a bit of help defining this (https://gemini.google.com/share/a3e3ef55a044)
+
 
 ;;; Part 1: Racket and Image Basics
 
 ; 1.1: Colored Circle
-
+(define (colored-circle rad color)
+  (circle rad "solid" color)
+  )
 
 ; 1.2: Bullseye
-
+(define (make-bullseye inrad inr ing inb outrad outr outg outb)
+  (overlay
+    (circle inrad "solid" (make-color inr ing inb))
+    (circle outrad "solid" (make-color outr outg outb))
+    )
+  )
 
 ; 1.3: Colored Square
-
+(define (make-square r g b side)
+  (square side "solid" (make-color r g b))
+  )
 
 ; 1.4: Gray Square
-
+(define (grayscale-square lum side)
+  (square side "solid" (make-color lum lum lum))
+  )
 
 
 

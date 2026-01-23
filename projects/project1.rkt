@@ -39,9 +39,6 @@
 
 
 
-; Test your functions before moving on!!
-
-
 ;;; Part 2: Combining Shapes
 
 ; 2.1: Traffic Light
@@ -70,7 +67,7 @@
   )
 
 ; 2.4: Car
-(define (simple-car)
+(define (make-car color)
   (define wheel (make-bullseye 35 0 0 0 45 100 100 100))
 
   (define body (polygon (list
@@ -87,7 +84,7 @@
         (make-posn 30 300)  ;; Base of car
       )
       "solid"
-      "dodger blue")) ;; Couldn't not use this name
+      color)) ;; Couldn't not use this name
 
   (define window (polygon (list
         (make-posn 170 200) ;; Base of windshield
@@ -108,29 +105,49 @@
 
 
 
-; Test your functions before moving on!!
-
-
 ;;; Part 3:
 
 ; 3.1: color->make-color
-
+(define (color->make-color rgb)
+  (make-color (first rgb) (second rgb) (third rgb))
+  )
 
 ; 3.2: darker
+(define (darker rgb)
+  (define (darken val) (inexact->exact (floor (* 0.8 val))))
 
+  (cond
+    [(empty? rgb) rgb]
+    [else         (cons (darken (first rgb)) (darker (rest rgb)))]
+    )
+  )
 
 ; 3.3: blend
+(define (blend rgb_one rgb_two)
+  (define (blend_val val_one val_two) (inexact->exact (floor (/ (+ val_one val_two) 2))))
 
+  (cond
+    [(empty? rgb_one) empty] ;; Technically I should account for different lengths, but idk exceptions yet
+    [else             (cons (blend_val (first rgb_one) (first rgb_two)) (blend (rest rgb_one) (rest rgb_two)))]
+    )
+  )
 
 ; 3.4: get-x and get-y
-
+(define (get-x pair) (car pair))
+(define (get-y pair) (cdr pair))
 
 ; 3.5: place-image-at
-
+(define (place-image-at img1 point img2)
+  (place-image img1 (get-x point) (get-y point) img2)
+  )
 
 ; 3.6: place-all
-
-
+(define (place-all points img1 img2)
+  (cond
+    [(empty? points)  img2]
+    [else             (place-image-at img1 (first points) (place-all (rest points) img1 img2))]
+    )
+  )
 
 
 ; Test all of your functions before moving on!!

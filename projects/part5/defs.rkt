@@ -9,13 +9,13 @@
 (define SCENE_HEIGHT 720)
 (define SCENE_WIDTH  1280)
 
-(define BACKGROUND (empty-scene SCENE_WIDTH SCENE_HEIGHT))
+(define BACKGROUND (rectangle SCENE_WIDTH SCENE_HEIGHT "solid" "white"))
 
 ;; Base Classes
 (define scene-obj-interface
   (interface ()
-    [render (-> image?)] ;; Should return an image that is SCENE_WIDTH * SCENE_HEIGHT (based on background)
-    [update (-> void?)]  ;; Not sure if this is right. It changes the obj itself
+    [render (->m image? image?)] ;; ->m is saying it has to have a method (m) of the following args and return
+    [update (->m void?)]
     )
   )
 

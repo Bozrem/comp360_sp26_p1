@@ -66,9 +66,8 @@
       )
 
     (define/public (render scene)
-      (place-image/align CAR_IMG x-pos y-pos "left" "top" scene)
+      (place-image/align CAR_IMG x-pos y-pos "left" "top" scene) ;; TODO: Scale
       )
     )
   )
-
-;; (show CAR_IMG)
+;; NOTE: Got help from Gemini to understand classes syntax https://gemini.google.com/share/b3bc3a9c6f2f
